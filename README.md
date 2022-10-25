@@ -4,9 +4,9 @@
 每日自动更新 github, docker 和 tinyMediaManager 的 IP 地址。  
 
 hosts Url:   
- Raw Url: https://raw.githubusercontent.com/shidahuilang/hosts/main/hosts
- CDN Url: https://gcore.jsdelivr.net/gh/shidahuilang/hosts@main/hosts
- CDN Url: https://cdn.staticaly.com/gh/shidahuilang/hosts/main/hosts    (推荐)  
+Raw Url: https://raw.githubusercontent.com/shidahuilang/hosts/main/hosts  
+CDN Url: https://gcore.jsdelivr.net/gh/shidahuilang/hosts@main/hosts  
+CDN Url: https://cdn.staticaly.com/gh/shidahuilang/hosts/main/hosts    (推荐)  
 
 ## Used  
 Windows/MacOS:  
