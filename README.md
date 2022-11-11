@@ -6,7 +6,7 @@
 hosts Url:   
 Raw Url: ``` https://raw.githubusercontent.com/shidahuilang/hosts/main/hosts ```  
 CDN Url: ``` https://gcore.jsdelivr.net/gh/shidahuilang/hosts@main/hosts ```  
-CDN Url: ``` https://cdn.staticaly.com/gh/shidahuilang/hosts/main/hosts ```    (推荐)  
+CDN Url: ``` https://cdn.staticaly.com/gh/shidahuilang/hosts/main/hosts ```    -(推荐)  
 
 ## Used  
 Windows/MacOS:  
