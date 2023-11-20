@@ -1,9 +1,8 @@
-name: 清理Actions
+name: Delete old workflow runs
 on:
-  workflow_dispatch:
-
   schedule:
-    - cron: 0 3 */2 * *
+    - cron: '0 0 1 * *'
+# Run monthly, at 00:00 on the 1st day of month.
 
 jobs:
   del_runs:
@@ -12,7 +11,7 @@ jobs:
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v2
         with:
-          token: ${{ secrets.SOURCE_TOKEN }}
+          token: ${{ github.token }}
           repository: ${{ github.repository }}
-          keep_minimum_runs: 0
-          retain_days: ${{ env.retain_days }}
+          retain_days: 1
+          keep_minimum_runs: 1
