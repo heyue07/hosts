@@ -11,11 +11,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Delete workflow runs
-        uses: small-5/delete-workflow-runs@main
+      - name: Delete releases and workflows runs
+        uses: ophub/delete-releases-workflows@main
         with:
           token: ${{ secrets.REPO_TOKEN }}
-          repository: ${{ github.repository }}
-          keep_minimum_runs: 0
-          baseUrl: https://api.github.com
-          retain_days: 30
+          del_workflows: true
+          workflows_keep_day: 10
+
