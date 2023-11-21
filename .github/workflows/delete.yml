@@ -16,4 +16,4 @@ jobs:
       with:
         token: ${{ secrets.REPO_TOKEN }}
         repository: ${{ github.repository }}
-        retain_min: ${{ env.RETAIN_MINUTE }}
+        retain_days: ${{ env.retain_days }}
