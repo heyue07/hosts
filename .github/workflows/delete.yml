@@ -8,13 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Delete releases and workflows runs
-        uses: ophub/delete-releases-workflows@main
-        with:
-          token: ${{ secrets.REPO_TOKEN }}
-          del_workflows: true
-          workflows_keep_day: 10
+    - name: 清理Actions空间
+      continue-on-error: true
+      if: env.REPO_TOKEN
+      uses: small-5/delete-workflow-runs@main
+      with:
+        token: ${{ secrets.REPO_TOKEN }}
+        repository: ${{ github.repository }}
+        retain_min: ${{ env.RETAIN_MINUTE }}
 
