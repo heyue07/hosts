@@ -1,19 +1,33 @@
-name: Delete old workflow runs
+name: 删除所有工作流
+
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 1 * *'
-# Run monthly, at 00:00 on the 1st day of month.
+  # 可选：如果你想定期自动触发删除操作，可以使用以下触发条件
+  # schedule:
+  #   - cron: "0 0 * * *"
 
 jobs:
-  del_runs:
+  delete_workflows:
     runs-on: ubuntu-latest
+
     steps:
-    - name: 清理Actions空间
-      if: env.REPO_TOKEN
-      uses: small-5/delete-workflow-runs@main
-      with:
-        token: ${{ secrets.REPO_TOKEN }}
-        keep_minimum_runs: 0
-        repository: ${{ github.repository }}
-        retain_days: ${{ env.retain_days }}
+      - name: Checkout 代码
+        uses: actions/checkout@v2
+
+      - name: 删除所有工作流
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const workflows = await github.actions.listRepoWorkflows({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            for (const workflow of workflows.data.workflows) {
+              await github.actions.deleteWorkflow({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: workflow.id
+              });
+            }
