@@ -19,13 +19,15 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const workflows = await github.actions.listRepoWorkflows({
+            const octokit = github.getOctokit(githubToken);
+            
+            const workflows = await octokit.rest.actions.listRepoWorkflows({
               owner: context.repo.owner,
               repo: context.repo.repo
             });
 
             for (const workflow of workflows.data.workflows) {
-              await github.actions.deleteWorkflow({
+              await octokit.rest.actions.deleteWorkflow({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 workflow_id: workflow.id
