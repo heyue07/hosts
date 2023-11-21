@@ -17,9 +17,9 @@ jobs:
       - name: 删除所有工作流
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.REPO_TOKEN }}
           script: |
-            const octokit = github.getOctokit(githubToken);
+            const octokit = github.getOctokit(context.token);
             
             const workflows = await octokit.rest.actions.listRepoWorkflows({
               owner: context.repo.owner,
