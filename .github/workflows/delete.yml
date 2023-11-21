@@ -1,39 +1,20 @@
-name: 删除所有工作流
+name: Delete All Workflow Runs
 
 on:
   workflow_dispatch:
-  # 可选：如果你想定期自动触发删除操作，可以使用以下触发条件
-  # schedule:
-  #   - cron: "0 0 * * *"
 
 jobs:
-  delete_workflows:
+  delete-runs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout 代码
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: 删除所有工作流
-        uses: actions/github-script@v4
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
         with:
-          github-token: ${{ secrets.REPO_TOKEN }}
-          script: |
-            const octokit = require('@octokit/rest')();
-            octokit.authenticate({
-              type: 'token',
-              token: process.env.REPO_TOKEN
-            });
-
-            const workflows = await octokit.actions.listRepoWorkflows({
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-
-            for (const workflow of workflows.data.workflows) {
-              await octokit.actions.deleteWorkflow({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                workflow_id: workflow.id
-              });
-            }
+          token: ${{ secrets.REPO_TOKEN }}
+          repository: ${{ github.repository }}
+          keep_minimum_runs: 0
+          baseUrl: https://api.github.com
