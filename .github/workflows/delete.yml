@@ -1,19 +1,17 @@
-name: Delete All Workflow Runs
-
+name: Delete old workflow runs
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *'
+# Run monthly, at 00:00 on the 1st day of month.
 
 jobs:
-  delete-runs:
+  del_runs:
     runs-on: ubuntu-latest
-
     steps:
-    - name: 清理Actions空间
-
-
-      uses: MajorScruffy/delete-old-workflow-runs@v0.2.0
-      with:
-       GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
-       repository: ${{ github.repository }}
-
-
+      - name: 删除 workflow runs
+        uses: JuvenileQ/delete-workflow-runs@main
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
